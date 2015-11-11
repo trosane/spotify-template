@@ -1,51 +1,96 @@
 <!DOCTYPE html>
 <html>
-<head>
-	<meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>Spotify Template</title>
-	
-	<!-- Include libraries -->
-	<script src="https://code.jquery.com/jquery.min.js"></script>
-	<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
-	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
-	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.2/angular.min.js"></script>
-	
-	<!-- Read scripts -->
-	<script src="app.js"></script>
-	<link href="app.css" type="text/css" rel="stylesheet"/>	
-	
-</head>
-<body>
-	<!-- Initiate app -->
-	<div ng-app="myApp" ng-controller="myCtrl">
-		<!-- Form -->
-		<form class="container" name="songForm">
-			<div class="form-group">
-				<label>Spotify search:</label>
-				<input name="search" placeholder="Enter your search.." ng-model="album" class="form-control"></input>
-			</div>
-			<div class="form-group">
-				<button ng-disabled="songForm.search.$invalid" class="btn btn-primary" ng-click="getArtists()" type="submit">Submit</button>
-			</div>
-		</form>
-		
-		<!-- Results -->
-		<div class="container-fixed">
-			<p class="help-block">Did you mean:</p>
-      <div class="row">
-    			 <ul class="col-md-4" "col-lg-4" "col-xl-4">
-    				<li ng-repeat="artist in artists" ng-hide="albums.length"><img ng-click="getAlbums($event)" id="{{artist.id}}" class="image" src="{{artist.images[0].url}}"><p>{{artist.name}}</p></li>
-    			</ul>
-        <ul class="col-md-4">
-          <li ng-repeat="album in albums" ng-hide="songs.length" class=""><img ng-click="getSongs($event)" id="{{album.id}}" class="image" src="{{album.images[0].url}}"><p>{{album.name}}</p></li>
-         </ul>
-         <ul class="col-md-4">
-          <li ng-repeat="song in songs" class=""><p>{{song.name}}</p></li>
-         </ul>
-		</div>
-	</div>
-	</div>
-</body>
+  <head>
+  	<meta charset="utf-8">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge">
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+  	<title>Spotify Template</title>
+  	
+  	<!-- Include libraries -->
+  	<script src="https://code.jquery.com/jquery.min.js"></script>
+  	<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+  	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+  	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.2/angular.min.js"></script>
+  	
+  	<!-- Read scripts -->
+  	<script src="app.js"></script>
+  	<link href="app.css" type="text/css" rel="stylesheet"/>	
+  	
+  </head>
+  <body>
+  	
+    <!-- Initiate app -->
+    <div ng-app="myApp" ng-controller="myCtrl">
+    
+    <div id="header">
+      <h1 id="site-info"><img src="http://www.iconarchive.com/download/i98446/dakirby309/simply-styled/Spotify.ico" id="spotify-icon">Spotify Song Searcher</h1>
+      <h3>Find songs that are available on Spotify and listen to samples. Begin by searching by artist name.</h3>
+  		
+      <!-- Form -->
+  		
+      <form class="container" name="songForm">
+  			<div class="form-group">
+  				<label>Spotify search:</label>
+  				<input name="search" placeholder="Enter a band name" ng-model="album" required ng-minlength="1" class="form-control"></input>
+          <p class="help-block" ng-show="songForm.search.$error.minlength">Artist input is empty. Please input an artist name.</p>
+  			</div>
+  			<div class="form-group">
+  				<button ng-disabled="songForm.search.$invalid" class="btn btn-primary" ng-click="getArtists()" type="submit">Submit</button>
+  			</div>
+  		</form>
+      <span class="help-block" ng-show"artists.length">Searching for: {{album}}</span>
+      <div class="row" id="nav-buttons">
+        <a href="index.html#artist-col" class="col-sm-4" "col-lg-4" "col-xl-4">Artists</a>
+        <a href="index.html#album-col" class="col-sm-4" "col-lg-4" "col-xl-4">Albums</a>
+        <a href="index.html#song-col" class="col-sm-4" "col-lg-4" "col-xl-4">Songs</a>
+      </div>
+
+        <div class="row">
+          <div class="col-sm-4" "col-lg-4" "col-xl-4">
+            <p>Artists</p>
+          </div>
+          <div class="col-sm-4" "col-lg-4" "col-xl-4">
+            <p>Albums</p>
+          </div>
+          <div class="col-sm-4" "col-lg-4" "col-xl-4">
+            <p>Songs</p>
+          </div>
+        </div>
+
+
+    </div>
+
+    <div id="spacer">
+
+    </div>
+
+  		
+  		<!-- Results -->
+  		<div class="container-fixed">
+        <div class="row">
+          
+          <div style="overflow: scroll; height:100vh;" class="col-sm-4" "col-lg-4" "col-xl-4" id="artist-col">
+      			 <ul>
+      				  <li ng-repeat="artist in artists" ng-show="artist.images.length != 0"><img ng-click="getAlbums($event)" class="{{artist.id}}" src="{{artist.images[0].url}}"><p ng-click="getAlbums($event)" class="{{artist.id}}">{{artist.name}}</p></li>
+      			</ul>
+          </div>
+
+          <div style="overflow: scroll; height:100vh;" class="col-sm-4" "col-lg-4" "col-xl-4" id="album-col">
+            <ul>
+                <li ng-repeat="album in albums" ng-show="albums.length">
+                  <img ng-click="getSongs($event)" class="{{album.id}}" src="{{album.images[0].url}}"><p ng-click="getSongs($event)" class="{{album.id}}">
+                  {{album.name}}</p></li>
+             </ul>
+           </div>
+
+           <div style="overflow: scroll; height:100vh;" class="col-sm-4" "col-lg-4" "col-xl-4" id="song-col">
+            <ul>
+              <li ng-repeat="song in songs" ng-click="play(song.preview_url)"; ><p class="song">{{song.name}}</p></li>
+             </ul>
+          </div>
+
+  		  </div>
+      </div>
+  	</div>
+  </body>
 </html>

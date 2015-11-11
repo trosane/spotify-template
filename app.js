@@ -4,38 +4,43 @@ var albumUrl = 'https://api.spotify.com/v1/artists/'
 var songUrl = 'https://api.spotify.com/v1/albums/'
 var myApp = angular.module('myApp', []);
 
+//sets up the controller and contains the function to get artist data
+
 var myCtrl = myApp.controller('myCtrl', function($scope, $http) {
   $scope.audioObject = {}
   $scope.getArtists = function() {
+  	$scope.songs = [];
+  	$scope.albums = [];
     $http.get(baseUrl + $scope.album).success(function(response){
-      artistData = $scope.artists = response.artists.items;   
+      var artistInfo = response.artists.items;
+      	artistData = $scope.artists = artistInfo;   
     });
   }
 
+//gets album data
 
   $scope.getAlbums = function(obj) {
-  	var artistID = obj.target.attributes.id.value;
-  	console.log(obj.target.attributes.id.value);
+  	$scope.songs = [];
+  	$scope.albums = [];
+  	var artistID = obj.target.attributes.class.value;
     $http.get(albumUrl + artistID + '/albums').success(function(response){
-      albumData = $scope.albums = response.items;
-      console.log(albumData);    
+      albumData = $scope.albums = response.items;    
     });
-
   }
+
+  //gets song data
 
   $scope.getSongs = function(obj) {
-  	var albumID = obj.target.attributes.id.value;
-  	console.log(obj.target.attributes.id.value);
-    $http.get(songUrl + albumID + '/tracksx').success(function(response){
-      songData = $scope.songs = response.items;
-      console.log(songData);    
+  	var albumID = obj.target.attributes.class.value;
+    $http.get(songUrl + albumID + '/tracks').success(function(response){
+      songData = $scope.songs = response.items;   
     });
 
   }
 
-
-  /*
-  $scope.play = function(song) {
+  // plays song when clicked
+  
+   $scope.play = function(song) {
     if($scope.currentSong == song) {
       $scope.audioObject.pause()
       $scope.currentSong = false
@@ -47,21 +52,10 @@ var myCtrl = myApp.controller('myCtrl', function($scope, $http) {
       $scope.audioObject.play()  
       $scope.currentSong = song
     }
-  } */
+  }
 });
 
 // Add tool tips to anything with a title property
 $('body').tooltip({
     selector: '[title]'
 });
-
-
-/*
-var myApp = angular.module('myApp', ['spotify']);
-var myCtrl = myApp.controller('myCtrl', ['$scope', 'Spotify', function ($scope, Spotify) {
-	Spotify.search('Nirvana', 'artist').then(function (data) {
-  	console.log(data);
-	});
-}]);
-
-*/

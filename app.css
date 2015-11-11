@@ -1,11 +1,51 @@
+@import url(https://fonts.googleapis.com/css?family=Montserrat);
+
 body {
-  padding:10px;
+  background-image: url("http://blog.livedesignonline.com/briefingroom/wp-content/uploads/2009/04/color-web-on-the-killers-tour-2009.jpg");
+  background-size: cover;
+  color: #C4F149;
+  font-family: 'Montserrat', sans-serif;
 }
 
-.image {
+#header {
+	background: black;
+	border-bottom: 2px solid white;
+	position: fixed;
+	width: 100%;
+	height: 300px;
+	z-index: 2;
+}
+
+#header a {
+	visibility: hidden;
+	max-height: 0px;
+}
+
+#spacer {
+	height: 300px;
+}
+
+#spotify-icon {
+	max-height: 50px;
+	max-width: 50px;
+}
+
+.container-fixed img {
 	max-width: 200px;
 	max-height: 200px;
 	padding: 10px 10px 10px 10px;
+	margin-left: auto;
+	margin-right: auto;
+	display: block;
+}
+
+.row p {
+	text-align: center;
+}
+
+h1, h3 {
+	text-align: center;
+	margin-top: 0px;
 }
 
 ul {
@@ -17,5 +57,56 @@ li {
 }
 
 li p {
-	text-align
+	text-align: center;
+	font-weight: bold;
+	font-style: italic;
+	font-size: 1.4em;
+}
+
+.help-block {
+	text-align: center;
+}
+
+.song, ul p {
+	font-weight: normal;
+	font-style: normal;
+	font-size: 1em;
+	border: 3px solid rgba(0, 0, 0, .4);
+	border-radius: 10px;
+	background: rgba(0, 0, 0, .4);
+	text-align: center;
+}
+
+@media screen and (max-width: 768px) {
+	#header h3, #header p, #header span {
+		visibility: hidden;
+		max-height: 0px;
+	}
+
+	#header a {
+		visibility: visible;
+		max-height: 1em;
+	}
+
+	#nav-buttons {
+		text-align: center;
+	}
+
+	#header {
+		height: 230px;
+	}
+
+	#spacer {
+		height: 230px;
+	}
+
+	#site-info {
+		font-size: 1.2em;
+	}
+
+	#spotify-icon {
+		visibility: hidden;
+		max-height: 0;
+		max-width: 0;
+	}
 }
