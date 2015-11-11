@@ -1,2 +1,9 @@
-# spotify-template
-This template is an optional starting point for a challenge for the following [course](http://faculty.washington.edu/mikefree/info343/) at the University of Washington.  The instructions are described [here](http://faculty.washington.edu/mikefree/info343/#/challenges/spotify).
+1) The purpose of this project is let users browse the Spotify database for songs, bypassing any membership or login function. Also, Spotify doesn’t quickly list all albums (it requires users to click ‘view all albums’). This streamlines the process a bit. I wanted to implement lyrics and song saving, but my time was limited this week.
+
+2) http://staff.washington.edu/trosane/spotify-template/index.html
+
+3) No
+
+4) ~12 hours
+
+5) No problems out of the ordinary
